@@ -489,10 +489,10 @@ def order_slice(json_arch):
     '''
     Creamos una lista de las imágenes de referencia de adquisición de cortes
     '''
-    lista_imagenes = [opj(path_ref,'GIF_SECUENCIAL_ASCENDENTE.gif'),
-                      opj(path_ref,'GIF_SECUENCIAL_DESCENDENTE.gif'),
-                      opj(path_ref,'GIF_INTERCALADO_PAR.gif'),
-                      opj(path_ref,'GIF_INTERCALADO_IMPAR.gif')]
+    lista_imagenes = [opj(path_ref,'SECUENCIAL_ASCENDENTE.png'),
+                      opj(path_ref,'SECUENCIAL_DESCENDENTE.png'),
+                      opj(path_ref,'INTERCALADO_PAR.png'),
+                      opj(path_ref,'INTERCALADO_IMPAR.png')]
 
     '''
     Extraemos información del arhivo .json
@@ -523,23 +523,23 @@ def order_slice(json_arch):
             print('Orden de adquisición de cortes secuenciales ascendente')
             slice_order = list(range(1, number_of_slices+1, 1))
             print(slice_timing)
-            display(Image(lista_imagenes[3]))
+            imagen_ref = lista_imagenes[3]
         else:
             print('Orden de adquisición de cortes intercalados inferior/pares')
             slice_order = list(range(1, number_of_slices+1, 2)) + list(range(2, number_of_slices+1, 2))
             print(slice_timing)
-            display(Image(lista_imagenes[2]))
+            imagen_ref = lista_imagenes[2]
     else:
         if segu == maxi - time_first:
             print('Orden de adquisición de cortes secuenciales descendente')
             slice_order = list(range(snumber_of_slices,0 , -1))
             print(slice_timing)
-            display(Image(lista_imagenes[1]))
+            imagen_ref = lista_imagenes[1]
         else:
             print('Orden de adquisición de cortes intercalados inferior+1/impares: \n')
             slice_order = list(range(2, number_of_slices+1, 2))+list(range(1, number_of_slices+1, 2))
             print(slice_timing)
-            display(Image(lista_imagenes[3]))
+            imagen_ref = lista_imagenes[3]
     
     '''
     Creamos un DataFrame (DF) con la información del archivo '.json'
@@ -561,25 +561,34 @@ def order_slice(json_arch):
     df_json = pd.DataFrame(lista_json)
     df_json.columns = [('IRMf '+ lista_json[0])]
     df_json.index = [list_dic]
-    display(df_json)
     
-    return slice_order,TR, number_of_slices, df_json
+    return slice_order,TR, number_of_slices, df_json, imagen_ref
 ```
 
 ## Ejecutamos función
 
 
 ```python
-datos_json_img = order_slice(json_arch=json_arch)
+datos_json_img = order_slice(json_arch= json_arch)
+print('\nTiempo de repetición (TR)= ', datos_json_img[1])
+print('\nNúmero de cortes = ', datos_json_img[2])
+display(Image(datos_json_img[4], width=400, height=400))
+display(datos_json_img[3])
 ```
 
     Orden de adquisición de cortes intercalados inferior+1/impares: 
     
     [1.205, 0, 1.2725, 0.0675, 1.3375, 0.135, 1.405, 0.2, 1.4725, 0.2675, 1.54, 0.335, 1.605, 0.4025, 1.6725, 0.4675, 1.74, 0.535, 1.8075, 0.6025, 1.875, 0.67, 1.94, 0.7375, 2.0075, 0.8025, 2.075, 0.87, 2.1425, 0.9375, 2.2075, 1.005, 2.275, 1.07, 2.3425, 1.1375]
+    
+    Tiempo de repetición (TR)=  2.4
+    
+    Número de cortes =  36
 
 
 
-    <IPython.core.display.Image object>
+    
+![png](output_32_1.png)
+    
 
 
 
@@ -733,13 +742,13 @@ print('--------------------------------------')
     --------------------------------------
     tiempo de ejecución
     
-     2.129 seg
-     0.035 min
+     2.266 seg
+     0.038 min
     --------------------------------------
     tiempo de ejecución del sistema y CPU
     
-     1.663 seg
-     0.028 min
+     1.786 seg
+     0.03 min
     --------------------------------------
 
 
