@@ -14,7 +14,7 @@
 
 El siguiente Script de Python forma parte del trabajo especial de grado.
 
-Profesor Guía:
+Profesora Guía:
 
 *PhD María Daniela Cornejo*
 
@@ -24,7 +24,7 @@ Profesor Guía:
 
 Imagenes de fMRI extraidas de OpenNeuro:
 
-- [ds004101](https://openneuro.org/datasets/ds004101/versions/1.0.1)
+- [ds002422](https://openneuro.org/datasets/ds002422/versions/1.1.0)
 
 ---
 
@@ -77,7 +77,7 @@ Para tomar una cadena JSON y convertirla en una estructura de diccionario:
 
     datastore = json.load(json_string)
 
-# Importamos librerias
+## Importamos librerias
 
 
 
@@ -103,44 +103,34 @@ import json # Módulo para trabajar con datos JSON
 %matplotlib inline
 ```
 
-# Definimos Parametros 
+## Definimos Parametros 
 
 
 ```python
 '''
 Ruta del directorio de la data
 '''
-path_data = '/home/aracena/data/ds004101/'
+path_data = '/home/aracena/data/ds002422/'
 
 '''
 Ruta donde reposa el archivo.json
 '''
-path_json = opj(path_data,'sub-09114','ses-1pre','func')
-
-'''
-Ruta donde se guardaran los resultados
-'''
-path_expe = '/home/aracena/thesis_ds004101/00_fase0_tips_nibabel_funciones/'
-
-path_output = opj(path_expe,'00_00_archivo_json_and_func_ordenslice', 'output')
-
-# Crear la(s) carpeta(s) de salida
-os.system('mkdir -p %s'%path_output)
+path_json = opj(path_data,'sub-01','func')
 
 '''
 Ruta donde reposan las imagenes de referencia de orden de adquisición de imagenes
 '''
-
-path_ref = opj(path_expe, '00_00_archivo_json_and_func_ordenslice','imagenes')
+path_expe = '/home/aracena/thesis_ds002422/00_fase0_tips_nibabel_funciones/'
+path_ref = opj(path_expe, '00_01_archivo_json_and_func_ordenslice','imagenes')
 ```
 
-# Cargamos el archivo '.json'
+## Cargamos el archivo '.json'
 
 Junto al archivo de la imagen funcional, encontramos un archivo '.json' el cual contiene la información de adquisición de la imagen
 
 
 ```python
-json_arch = opj(path_json,'sub-09114_ses-1pre_task-rest_bold.json')
+json_arch = opj(path_json,'sub-01_task-rest_bold.json')
 ```
 
 
@@ -156,7 +146,7 @@ La información cargada del archivo '.json' esta en forma de diccionario, compro
 print(task_info)
 ```
 
-    {'TaskName': 'rest', 'MagneticFieldStrength': 3, 'Manufacturer': 'Siemens', 'ManufacturersModelName': 'Verio', 'BodyPartExamined': 'HEAD', 'PatientPosition': 'HFS', 'MRAcquisitionType': '2D', 'ScanningSequence': 'EP', 'SequenceVariant': 'SK', 'ScanOptions': 'FS', 'ImageType': ['ORIGINAL', 'PRIMARY', 'M', 'ND', 'MOSAIC'], 'SliceThickness': 3, 'SpacingBetweenSlices': 3.75, 'EchoTime': 0.03, 'RepetitionTime': 2.4, 'FlipAngle': 90, 'PercentPhaseFOV': 100, 'PhaseEncodingSteps': 64, 'AcquisitionMatrixPE': 64, 'ReconMatrixPE': 64, 'EffectiveEchoSpacing': 0.000510004, 'TotalReadoutTime': 0.0321303, 'PhaseEncodingDirection': 'i', 'SliceTiming': [1.205, 0, 1.2725, 0.0675, 1.3375, 0.135, 1.405, 0.2, 1.4725, 0.2675, 1.54, 0.335, 1.605, 0.4025, 1.6725, 0.4675, 1.74, 0.535, 1.8075, 0.6025, 1.875, 0.67, 1.94, 0.7375, 2.0075, 0.8025, 2.075, 0.87, 2.1425, 0.9375, 2.2075, 1.005, 2.275, 1.07, 2.3425, 1.1375], 'InPlanePhaseEncodingDirectionDICOM': 'ROW', 'Instructions': "Lie still with eyes closed, don't keep yourself busy with any specific mental task, just follow the stream of your thoughts."}
+    {'TaskName': 'rest', 'MagneticFieldStrength': 1.5, 'Manufacturer': 'Siemens', 'ManufacturersModelName': 'Avanto', 'BodyPartExamined': 'HEAD', 'PatientPosition': 'HFS', 'ProcedureStepDescription': 'head_NEURO', 'SoftwareVersions': 'syngo_MR_B19', 'MRAcquisitionType': '2D', 'ScanningSequence': 'EP', 'SequenceVariant': 'SK', 'ScanOptions': 'FS', 'SequenceName': '_epfid2d1_64', 'ImageType': ['ORIGINAL', 'PRIMARY', 'FMRI', 'NONE', 'ND', 'MOSAIC'], 'SliceThickness': 3.6, 'SpacingBetweenSlices': 3.78, 'EchoTime': 0.05, 'RepetitionTime': 3.56, 'FlipAngle': 90, 'PartialFourier': 1, 'BaseResolution': 64, 'DelayTime': 0.5, 'PhaseResolution': 1, 'ReceiveCoilName': 'HeadMatrix', 'PulseSequenceDetails': '%SiemensSeq%_ep2d_bold', 'PercentPhaseFOV': 100, 'PhaseEncodingSteps': 64, 'AcquisitionMatrixPE': 64, 'ReconMatrixPE': 64, 'BandwidthPerPixelPhaseEncode': 34.722, 'EffectiveEchoSpacing': 0.000450003, 'DerivedVendorReportedEchoSpacing': 0.000450003, 'TotalReadoutTime': 0.0283502, 'PixelBandwidth': 2604, 'DwellTime': 3e-06, 'PhaseEncodingDirection': 'j-', 'SliceTiming': [1.5375, 0, 1.6225, 0.085, 1.7075, 0.1725, 1.7925, 0.2575, 1.8775, 0.3425, 1.9625, 0.4275, 2.05, 0.5125, 2.135, 0.5975, 2.22, 0.6825, 2.305, 0.77, 2.39, 0.855, 2.475, 0.94, 2.56, 1.025, 2.6475, 1.11, 2.7325, 1.195, 2.8175, 1.28, 2.9025, 1.3675, 2.9875, 1.4525], 'InPlanePhaseEncodingDirectionDICOM': 'COL', 'NumberOfVolumesDiscardedByUser': 3, 'Instructions': 'Participants were asked to close their eyes, to not fall asleep, and to avoid consistent thinking about one topic during the period of scanning'}
 
 
 
@@ -171,9 +161,9 @@ type(task_info)
 
 
 
-# Creamos un DataFrame (DF) con la información del archivo '.json'
+## Creamos un DataFrame (DF) con la información del archivo '.json'
 
-## Creamos una lista con las claves del diccionario
+### Creamos una lista con las claves del diccionario
 
 
 ```python
@@ -185,7 +175,7 @@ list_dic = list(task_info.keys())
 print(list_dic)
 ```
 
-    ['TaskName', 'MagneticFieldStrength', 'Manufacturer', 'ManufacturersModelName', 'BodyPartExamined', 'PatientPosition', 'MRAcquisitionType', 'ScanningSequence', 'SequenceVariant', 'ScanOptions', 'ImageType', 'SliceThickness', 'SpacingBetweenSlices', 'EchoTime', 'RepetitionTime', 'FlipAngle', 'PercentPhaseFOV', 'PhaseEncodingSteps', 'AcquisitionMatrixPE', 'ReconMatrixPE', 'EffectiveEchoSpacing', 'TotalReadoutTime', 'PhaseEncodingDirection', 'SliceTiming', 'InPlanePhaseEncodingDirectionDICOM', 'Instructions']
+    ['TaskName', 'MagneticFieldStrength', 'Manufacturer', 'ManufacturersModelName', 'BodyPartExamined', 'PatientPosition', 'ProcedureStepDescription', 'SoftwareVersions', 'MRAcquisitionType', 'ScanningSequence', 'SequenceVariant', 'ScanOptions', 'SequenceName', 'ImageType', 'SliceThickness', 'SpacingBetweenSlices', 'EchoTime', 'RepetitionTime', 'FlipAngle', 'PartialFourier', 'BaseResolution', 'DelayTime', 'PhaseResolution', 'ReceiveCoilName', 'PulseSequenceDetails', 'PercentPhaseFOV', 'PhaseEncodingSteps', 'AcquisitionMatrixPE', 'ReconMatrixPE', 'BandwidthPerPixelPhaseEncode', 'EffectiveEchoSpacing', 'DerivedVendorReportedEchoSpacing', 'TotalReadoutTime', 'PixelBandwidth', 'DwellTime', 'PhaseEncodingDirection', 'SliceTiming', 'InPlanePhaseEncodingDirectionDICOM', 'NumberOfVolumesDiscardedByUser', 'Instructions']
 
 
 
@@ -269,7 +259,7 @@ display(df_json)
     </tr>
     <tr>
       <th>MagneticFieldStrength</th>
-      <td>3</td>
+      <td>1.5</td>
     </tr>
     <tr>
       <th>Manufacturer</th>
@@ -277,7 +267,7 @@ display(df_json)
     </tr>
     <tr>
       <th>ManufacturersModelName</th>
-      <td>Verio</td>
+      <td>Avanto</td>
     </tr>
     <tr>
       <th>BodyPartExamined</th>
@@ -286,6 +276,14 @@ display(df_json)
     <tr>
       <th>PatientPosition</th>
       <td>HFS</td>
+    </tr>
+    <tr>
+      <th>ProcedureStepDescription</th>
+      <td>head_NEURO</td>
+    </tr>
+    <tr>
+      <th>SoftwareVersions</th>
+      <td>syngo_MR_B19</td>
     </tr>
     <tr>
       <th>MRAcquisitionType</th>
@@ -304,28 +302,56 @@ display(df_json)
       <td>FS</td>
     </tr>
     <tr>
+      <th>SequenceName</th>
+      <td>_epfid2d1_64</td>
+    </tr>
+    <tr>
       <th>ImageType</th>
-      <td>['ORIGINAL', 'PRIMARY', 'M', 'ND', 'MOSAIC']</td>
+      <td>['ORIGINAL', 'PRIMARY', 'FMRI', 'NONE', 'ND', ...</td>
     </tr>
     <tr>
       <th>SliceThickness</th>
-      <td>3</td>
+      <td>3.6</td>
     </tr>
     <tr>
       <th>SpacingBetweenSlices</th>
-      <td>3.75</td>
+      <td>3.78</td>
     </tr>
     <tr>
       <th>EchoTime</th>
-      <td>0.03</td>
+      <td>0.05</td>
     </tr>
     <tr>
       <th>RepetitionTime</th>
-      <td>2.4</td>
+      <td>3.56</td>
     </tr>
     <tr>
       <th>FlipAngle</th>
       <td>90</td>
+    </tr>
+    <tr>
+      <th>PartialFourier</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>BaseResolution</th>
+      <td>64</td>
+    </tr>
+    <tr>
+      <th>DelayTime</th>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>PhaseResolution</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>ReceiveCoilName</th>
+      <td>HeadMatrix</td>
+    </tr>
+    <tr>
+      <th>PulseSequenceDetails</th>
+      <td>%SiemensSeq%_ep2d_bold</td>
     </tr>
     <tr>
       <th>PercentPhaseFOV</th>
@@ -344,43 +370,63 @@ display(df_json)
       <td>64</td>
     </tr>
     <tr>
+      <th>BandwidthPerPixelPhaseEncode</th>
+      <td>34.722</td>
+    </tr>
+    <tr>
       <th>EffectiveEchoSpacing</th>
-      <td>0.00051</td>
+      <td>0.00045</td>
+    </tr>
+    <tr>
+      <th>DerivedVendorReportedEchoSpacing</th>
+      <td>0.00045</td>
     </tr>
     <tr>
       <th>TotalReadoutTime</th>
-      <td>0.03213</td>
+      <td>0.02835</td>
+    </tr>
+    <tr>
+      <th>PixelBandwidth</th>
+      <td>2604</td>
+    </tr>
+    <tr>
+      <th>DwellTime</th>
+      <td>0.000003</td>
     </tr>
     <tr>
       <th>PhaseEncodingDirection</th>
-      <td>i</td>
+      <td>j-</td>
     </tr>
     <tr>
       <th>SliceTiming</th>
-      <td>[1.205, 0, 1.2725, 0.0675, 1.3375, 0.135, 1.40...</td>
+      <td>[1.5375, 0, 1.6225, 0.085, 1.7075, 0.1725, 1.7...</td>
     </tr>
     <tr>
       <th>InPlanePhaseEncodingDirectionDICOM</th>
-      <td>ROW</td>
+      <td>COL</td>
+    </tr>
+    <tr>
+      <th>NumberOfVolumesDiscardedByUser</th>
+      <td>3</td>
     </tr>
     <tr>
       <th>Instructions</th>
-      <td>Lie still with eyes closed, don't keep yoursel...</td>
+      <td>Participants were asked to close their eyes, t...</td>
     </tr>
   </tbody>
 </table>
 </div>
 
 
-# Orden de adquisición de los slices
+## Orden de adquisición de los slices
 
 Casi todos los datos de resonancia magnética funcional se recopilan mediante adquisición de resonancia magnética bidimensional, en la que los datos se adquieren a un corte a la vez. Los dos métodos más utilizados para crear volúmenes son la adquisición de cortes secuenciales e intercalados. 
 
-La adquisición secuencial de cortes adquiere cada corte adyacente de forma consecutiva, ya sea de abajo hacia arriba (ascendente) o de arriba hacia abajo (ascendente), como se ilustra en la figura dinámica. Cada método secuencial lo denominaremos:  'adquisición de cortes secuencial ascendente' y 'adquisición de cortes secuencial descendente' y ambos se ilustran en la figura dinámica izquierda y derecha respectivamente.
+La adquisición secuencial de cortes adquiere cada corte adyacente de forma consecutiva, ya sea de abajo hacia arriba (ascendente) o de arriba hacia abajo (descendente), como se ilustra en la figura dinámica. Cada método secuencial lo denominaremos:  'adquisición de cortes secuencial ascendente' y 'adquisición de cortes secuencial descendente' y ambos se ilustran en la figura dinámica izquierda y derecha respectivamente.
 
 ![](imagenes/GIF_SECUENCIAL.gif)
 
-La adquisición de cortes intercalados adquiere cada dos cortes y luego llena los espacios en el segundo paso. Como se ilustra en la figura dinámica izquierda, se adquieren cada dos slices secuencialmente, de modo que se adquieren la mitad de los slices (por ejemplo, los slices pares) seguidas por la otra mitad (por ejemplo, las slices impares), llamaremos a este método de adquisición: 'adquisición de cortes intercalados inferior/pares'; por otro lado, en la figura dinámica derecha, se adquieren cada dos slices secuencialmente, de modo que se adquieren la mitad de los slices (por ejemplo, los slices impares) seguidas por la otra mitad (los slices pares), llamaremos a este método de adquisición: 'adquisición de cortes intercalados inferior+1/impares'
+La adquisición de cortes intercalados adquiere cada dos cortes y luego llena los espacios en el segundo paso. Como se ilustra en la figura dinámica izquierda, se adquieren cada dos slices secuencialmente, de modo que se adquieren la mitad de los slices (los slices pares) seguidas por la otra mitad (los slices impares), llamaremos a este método de adquisición: 'adquisición de cortes intercalados inferior/pares'; por otro lado, en la figura dinámica derecha, se adquieren cada dos slices secuencialmente, de modo que se adquieren la mitad de los slices (los slices impares) seguidas por la otra mitad (los slices pares), llamaremos a este método de adquisición: 'adquisición de cortes intercalados inferior+1/impares'.
 
 ![](imagenes/GIF_INTERCALADO.gif)
 
@@ -449,14 +495,14 @@ else:
 
     Orden de adquisición de cortes intercalados inferior+1/impares: 
     
-    [1.205, 0, 1.2725, 0.0675, 1.3375, 0.135, 1.405, 0.2, 1.4725, 0.2675, 1.54, 0.335, 1.605, 0.4025, 1.6725, 0.4675, 1.74, 0.535, 1.8075, 0.6025, 1.875, 0.67, 1.94, 0.7375, 2.0075, 0.8025, 2.075, 0.87, 2.1425, 0.9375, 2.2075, 1.005, 2.275, 1.07, 2.3425, 1.1375]
+    [1.5375, 0, 1.6225, 0.085, 1.7075, 0.1725, 1.7925, 0.2575, 1.8775, 0.3425, 1.9625, 0.4275, 2.05, 0.5125, 2.135, 0.5975, 2.22, 0.6825, 2.305, 0.77, 2.39, 0.855, 2.475, 0.94, 2.56, 1.025, 2.6475, 1.11, 2.7325, 1.195, 2.8175, 1.28, 2.9025, 1.3675, 2.9875, 1.4525]
 
 
 
     <IPython.core.display.Image object>
 
 
-# Creación de la función 'order_slice'
+## Creación de la función 'order_slice'
 
 
 ```python
@@ -565,7 +611,7 @@ def order_slice(json_arch):
     return slice_order,TR, number_of_slices, df_json, imagen_ref
 ```
 
-## Ejecutamos función
+### Ejecutamos función
 
 
 ```python
@@ -578,9 +624,9 @@ display(datos_json_img[3])
 
     Orden de adquisición de cortes intercalados inferior+1/impares: 
     
-    [1.205, 0, 1.2725, 0.0675, 1.3375, 0.135, 1.405, 0.2, 1.4725, 0.2675, 1.54, 0.335, 1.605, 0.4025, 1.6725, 0.4675, 1.74, 0.535, 1.8075, 0.6025, 1.875, 0.67, 1.94, 0.7375, 2.0075, 0.8025, 2.075, 0.87, 2.1425, 0.9375, 2.2075, 1.005, 2.275, 1.07, 2.3425, 1.1375]
+    [1.5375, 0, 1.6225, 0.085, 1.7075, 0.1725, 1.7925, 0.2575, 1.8775, 0.3425, 1.9625, 0.4275, 2.05, 0.5125, 2.135, 0.5975, 2.22, 0.6825, 2.305, 0.77, 2.39, 0.855, 2.475, 0.94, 2.56, 1.025, 2.6475, 1.11, 2.7325, 1.195, 2.8175, 1.28, 2.9025, 1.3675, 2.9875, 1.4525]
     
-    Tiempo de repetición (TR)=  2.4
+    Tiempo de repetición (TR)=  3.56
     
     Número de cortes =  36
 
@@ -620,7 +666,7 @@ display(datos_json_img[3])
     </tr>
     <tr>
       <th>MagneticFieldStrength</th>
-      <td>3</td>
+      <td>1.5</td>
     </tr>
     <tr>
       <th>Manufacturer</th>
@@ -628,7 +674,7 @@ display(datos_json_img[3])
     </tr>
     <tr>
       <th>ManufacturersModelName</th>
-      <td>Verio</td>
+      <td>Avanto</td>
     </tr>
     <tr>
       <th>BodyPartExamined</th>
@@ -637,6 +683,14 @@ display(datos_json_img[3])
     <tr>
       <th>PatientPosition</th>
       <td>HFS</td>
+    </tr>
+    <tr>
+      <th>ProcedureStepDescription</th>
+      <td>head_NEURO</td>
+    </tr>
+    <tr>
+      <th>SoftwareVersions</th>
+      <td>syngo_MR_B19</td>
     </tr>
     <tr>
       <th>MRAcquisitionType</th>
@@ -655,28 +709,56 @@ display(datos_json_img[3])
       <td>FS</td>
     </tr>
     <tr>
+      <th>SequenceName</th>
+      <td>_epfid2d1_64</td>
+    </tr>
+    <tr>
       <th>ImageType</th>
-      <td>['ORIGINAL', 'PRIMARY', 'M', 'ND', 'MOSAIC']</td>
+      <td>['ORIGINAL', 'PRIMARY', 'FMRI', 'NONE', 'ND', ...</td>
     </tr>
     <tr>
       <th>SliceThickness</th>
-      <td>3</td>
+      <td>3.6</td>
     </tr>
     <tr>
       <th>SpacingBetweenSlices</th>
-      <td>3.75</td>
+      <td>3.78</td>
     </tr>
     <tr>
       <th>EchoTime</th>
-      <td>0.03</td>
+      <td>0.05</td>
     </tr>
     <tr>
       <th>RepetitionTime</th>
-      <td>2.4</td>
+      <td>3.56</td>
     </tr>
     <tr>
       <th>FlipAngle</th>
       <td>90</td>
+    </tr>
+    <tr>
+      <th>PartialFourier</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>BaseResolution</th>
+      <td>64</td>
+    </tr>
+    <tr>
+      <th>DelayTime</th>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>PhaseResolution</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>ReceiveCoilName</th>
+      <td>HeadMatrix</td>
+    </tr>
+    <tr>
+      <th>PulseSequenceDetails</th>
+      <td>%SiemensSeq%_ep2d_bold</td>
     </tr>
     <tr>
       <th>PercentPhaseFOV</th>
@@ -695,35 +777,55 @@ display(datos_json_img[3])
       <td>64</td>
     </tr>
     <tr>
+      <th>BandwidthPerPixelPhaseEncode</th>
+      <td>34.722</td>
+    </tr>
+    <tr>
       <th>EffectiveEchoSpacing</th>
-      <td>0.00051</td>
+      <td>0.00045</td>
+    </tr>
+    <tr>
+      <th>DerivedVendorReportedEchoSpacing</th>
+      <td>0.00045</td>
     </tr>
     <tr>
       <th>TotalReadoutTime</th>
-      <td>0.03213</td>
+      <td>0.02835</td>
+    </tr>
+    <tr>
+      <th>PixelBandwidth</th>
+      <td>2604</td>
+    </tr>
+    <tr>
+      <th>DwellTime</th>
+      <td>0.000003</td>
     </tr>
     <tr>
       <th>PhaseEncodingDirection</th>
-      <td>i</td>
+      <td>j-</td>
     </tr>
     <tr>
       <th>SliceTiming</th>
-      <td>[1.205, 0, 1.2725, 0.0675, 1.3375, 0.135, 1.40...</td>
+      <td>[1.5375, 0, 1.6225, 0.085, 1.7075, 0.1725, 1.7...</td>
     </tr>
     <tr>
       <th>InPlanePhaseEncodingDirectionDICOM</th>
-      <td>ROW</td>
+      <td>COL</td>
+    </tr>
+    <tr>
+      <th>NumberOfVolumesDiscardedByUser</th>
+      <td>3</td>
     </tr>
     <tr>
       <th>Instructions</th>
-      <td>Lie still with eyes closed, don't keep yoursel...</td>
+      <td>Participants were asked to close their eyes, t...</td>
     </tr>
   </tbody>
 </table>
 </div>
 
 
-# Tiempo de ejecución
+## Tiempo de ejecución
 
 
 ```python
@@ -742,14 +844,14 @@ print('--------------------------------------')
     --------------------------------------
     tiempo de ejecución
     
-     2.266 seg
-     0.038 min
+     2.214 seg
+     0.037 min
     --------------------------------------
     tiempo de ejecución del sistema y CPU
     
-     1.786 seg
-     0.03 min
+     1.708 seg
+     0.028 min
     --------------------------------------
 
 
-# Fin
+## Fin
